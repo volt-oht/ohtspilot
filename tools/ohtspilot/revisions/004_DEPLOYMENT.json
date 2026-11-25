@@ -1,0 +1,19 @@
+{
+  "revision": "004",
+  "source_commit": "4be3143f7144127f098eb471c255ec95177e92e4",
+  "status": "installed_restart_verified_offroad",
+  "verified_date": "2026-11-25",
+  "checks": {
+    "source_and_runtime_match": true,
+    "logmessaged_running": true,
+    "manager_expected_processes_running": true,
+    "synthetic_error_delivered_and_persisted": true,
+    "ApplyLongDynamicCost": "0",
+    "RecordFront": "0",
+    "RecordFrontLock": "0"
+  },
+  "longitudinal_control_revision": "003",
+  "communication_fault_resolved": false,
+  "onroad_resource_impact_validated": false,
+  "scope": "Restore local diagnostics and comparison settings; no control algorithm changes. Device-local DIAGNOSTICS_REV004.json retains exact backup and installation details."
+}
