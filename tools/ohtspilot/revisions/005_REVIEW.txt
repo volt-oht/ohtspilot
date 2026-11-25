@@ -30,8 +30,9 @@ stationary/closing/braking/close leads, missing radar, both pedals, hold,
 stopping state and decelerating plan. Planner tests use a recording MPC;
 they do not execute the optimizer or simulate the vehicle.
 
-Not validated: native solver trajectories for this revision, actual launch
-comfort, brake-release timing, onroad CPU load or communication fault cause.
+Native comparison subsequently completed on LEPRO; see 005_NATIVE_REVIEW.txt.
+Not validated: actual launch comfort, vehicle brake-release timing, onroad
+CPU load or communication fault cause.
 No LEPRO deployment or onroad test performed for this revision. Keep the
 installed 003 controller plus 004 diagnostics until those checks are complete.
 The original kanspilot repository is unchanged.

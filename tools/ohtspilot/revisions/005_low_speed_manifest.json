@@ -108,9 +108,10 @@
   "validation": {
     "helper_tests": 11,
     "planner_input_tests": 6,
-    "native_solver_for_this_revision": false,
+    "native_solver_for_this_revision": true,
     "vehicle_validation": false,
     "device_deployed": false,
-    "deployment_receipt": "No revision 005 installation. Last verified device is controller 003 plus diagnostics 004."
+    "deployment_receipt": "No revision 005 installation. Last verified device is controller 003 plus diagnostics 004.",
+    "native_solver_scope": "6400 solves across 10 ideal-plant cases using actual Planner, MPC and LongControl; zero solver errors. No material launch benefit; some baseline and candidate gaps below 4 m. Not road-ready validation."
   }
 }

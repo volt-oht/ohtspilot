@@ -1,0 +1,287 @@
+{
+  "scope": "Actual planner/native MPC/LongControl; ideal actuator and kinematic plant; no CAN or publishing; vision/nav curve solutions substituted.",
+  "installed_hashes_unchanged": true,
+  "metrics": {
+    "launch": {
+      "installed003": {
+        "min_gap": 7.526049083629001,
+        "max_accel": 0.7173722198145966,
+        "min_accel": -0.013330394294714222,
+        "speed_5s": 1.4350316960865974,
+        "speed_10s": 4.427672452770328,
+        "launch_time": 0.6000000000000001,
+        "solver_errors": 0,
+        "finite": true,
+        "planner_ms_median": 7.4235674999272305,
+        "planner_ms_p99": 8.977656910021778,
+        "planner_ms_max": 10.178540999959296
+      },
+      "candidate005": {
+        "min_gap": 7.526049083629001,
+        "max_accel": 0.7172328376258718,
+        "min_accel": -0.013313418454951681,
+        "speed_5s": 1.4350684372025095,
+        "speed_10s": 4.4276673539529785,
+        "launch_time": 0.6000000000000001,
+        "solver_errors": 0,
+        "finite": true,
+        "planner_ms_median": 7.4436979999745745,
+        "planner_ms_p99": 8.656929889857565,
+        "planner_ms_max": 8.938749999970241
+      }
+    },
+    "creep": {
+      "installed003": {
+        "min_gap": 7.7703363905263725,
+        "max_accel": 0.7548202513818068,
+        "min_accel": -0.0047443877313308735,
+        "speed_5s": 2.1760559560055053,
+        "speed_10s": 5.342492418185432,
+        "launch_time": 0.0,
+        "solver_errors": 0,
+        "finite": true,
+        "planner_ms_median": 7.38419200001772,
+        "planner_ms_p99": 8.638981309989049,
+        "planner_ms_max": 9.252551999907155
+      },
+      "candidate005": {
+        "min_gap": 7.7703363905263725,
+        "max_accel": 0.7548202513818068,
+        "min_accel": -0.0047443877313308735,
+        "speed_5s": 2.1760559560055053,
+        "speed_10s": 5.342492418185432,
+        "launch_time": 0.0,
+        "solver_errors": 0,
+        "finite": true,
+        "planner_ms_median": 7.463099000005968,
+        "planner_ms_p99": 9.064917100106413,
+        "planner_ms_max": 11.991041999863228
+      }
+    },
+    "restop": {
+      "installed003": {
+        "min_gap": 3.8380355876529126,
+        "max_accel": 0.6008904898255466,
+        "min_accel": -2.0016767636114645,
+        "speed_5s": 1.4350316960865974,
+        "speed_10s": 1.271080342419249,
+        "launch_time": 0.6000000000000001,
+        "solver_errors": 0,
+        "finite": true,
+        "planner_ms_median": 7.352056999934575,
+        "planner_ms_p99": 8.443162749986186,
+        "planner_ms_max": 11.62682299991502
+      },
+      "candidate005": {
+        "min_gap": 3.8374854558950475,
+        "max_accel": 0.6011900366247667,
+        "min_accel": -2.001684535533727,
+        "speed_5s": 1.4350684372025095,
+        "speed_10s": 1.271014330780012,
+        "launch_time": 0.6000000000000001,
+        "solver_errors": 0,
+        "finite": true,
+        "planner_ms_median": 7.351796999955695,
+        "planner_ms_p99": 8.544687519877243,
+        "planner_ms_max": 8.787761000121463
+      }
+    },
+    "hard_brake": {
+      "installed003": {
+        "min_gap": 3.94786999679991,
+        "max_accel": 0.6008904898255466,
+        "min_accel": -2.0039536984982633,
+        "speed_5s": 1.4350316960865974,
+        "speed_10s": 0.9522395986755908,
+        "launch_time": 0.6000000000000001,
+        "solver_errors": 0,
+        "finite": true,
+        "planner_ms_median": 7.451249999917309,
+        "planner_ms_p99": 14.014394930059098,
+        "planner_ms_max": 17.830729000024803
+      },
+      "candidate005": {
+        "min_gap": 3.947314261201659,
+        "max_accel": 0.6011900366247667,
+        "min_accel": -2.0039672257037733,
+        "speed_5s": 1.4350684372025095,
+        "speed_10s": 0.9521779584750273,
+        "launch_time": 0.6000000000000001,
+        "solver_errors": 0,
+        "finite": true,
+        "planner_ms_median": 7.37111950002145,
+        "planner_ms_p99": 8.509097010085043,
+        "planner_ms_max": 8.651718999999503
+      }
+    },
+    "hold": {
+      "installed003": {
+        "min_gap": 4.5,
+        "max_accel": -0.2660959776,
+        "min_accel": -2.002305164045073,
+        "speed_5s": 0.0,
+        "speed_10s": 0.0,
+        "launch_time": null,
+        "solver_errors": 0,
+        "finite": true,
+        "planner_ms_median": 7.295599000030961,
+        "planner_ms_p99": 8.96827890010627,
+        "planner_ms_max": 11.701459000050818
+      },
+      "candidate005": {
+        "min_gap": 4.5,
+        "max_accel": -0.2660959776,
+        "min_accel": -2.002305164045073,
+        "speed_5s": 0.0,
+        "speed_10s": 0.0,
+        "launch_time": null,
+        "solver_errors": 0,
+        "finite": true,
+        "planner_ms_median": 7.284844000082558,
+        "planner_ms_p99": 8.76898091991734,
+        "planner_ms_max": 9.48723900000914
+      }
+    },
+    "stopped_lead": {
+      "installed003": {
+        "min_gap": 4.359512280742797,
+        "max_accel": 0.028313267726364846,
+        "min_accel": -2.000713365079168,
+        "speed_5s": 0.0,
+        "speed_10s": 0.0,
+        "launch_time": null,
+        "solver_errors": 0,
+        "finite": true,
+        "planner_ms_median": 7.333905999985291,
+        "planner_ms_p99": 8.85113939998746,
+        "planner_ms_max": 8.934791000001496
+      },
+      "candidate005": {
+        "min_gap": 4.359512280742797,
+        "max_accel": 0.028313267726364846,
+        "min_accel": -2.000713365079168,
+        "speed_5s": 0.0,
+        "speed_10s": 0.0,
+        "launch_time": null,
+        "solver_errors": 0,
+        "finite": true,
+        "planner_ms_median": 7.363437000094564,
+        "planner_ms_p99": 8.659250209971106,
+        "planner_ms_max": 11.03088500008198
+      }
+    },
+    "close": {
+      "installed003": {
+        "min_gap": 3.6134988654238334,
+        "max_accel": -0.3148319224237095,
+        "min_accel": -2.0063331754807563,
+        "speed_5s": 0.0,
+        "speed_10s": 0.0,
+        "launch_time": 0.0,
+        "solver_errors": 0,
+        "finite": true,
+        "planner_ms_median": 7.490312999948401,
+        "planner_ms_p99": 9.12019378994728,
+        "planner_ms_max": 9.369426999910502
+      },
+      "candidate005": {
+        "min_gap": 3.6134988654238334,
+        "max_accel": -0.3148319224237095,
+        "min_accel": -2.0063331754807563,
+        "speed_5s": 0.0,
+        "speed_10s": 0.0,
+        "launch_time": 0.0,
+        "solver_errors": 0,
+        "finite": true,
+        "planner_ms_median": 7.463202999929308,
+        "planner_ms_p99": 8.784077160032668,
+        "planner_ms_max": 9.26729200000409
+      }
+    },
+    "lead_loss": {
+      "installed003": {
+        "min_gap": 7.526049083629001,
+        "max_accel": 1.2317313866119126,
+        "min_accel": 0.03673263228514866,
+        "speed_5s": 2.0371814025464556,
+        "speed_10s": 4.411876395266378,
+        "launch_time": 0.6000000000000001,
+        "solver_errors": 0,
+        "finite": true,
+        "planner_ms_median": 7.34726599989699,
+        "planner_ms_p99": 8.814634219986601,
+        "planner_ms_max": 9.122761000071478
+      },
+      "candidate005": {
+        "min_gap": 7.526049083629001,
+        "max_accel": 1.2317314247028093,
+        "min_accel": 0.036732259782444654,
+        "speed_5s": 2.0371889790837776,
+        "speed_10s": 4.41187433546798,
+        "launch_time": 0.6000000000000001,
+        "solver_errors": 0,
+        "finite": true,
+        "planner_ms_median": 7.346979499970985,
+        "planner_ms_p99": 8.257445770111644,
+        "planner_ms_max": 8.471458000030907
+      }
+    },
+    "tight_launch": {
+      "installed003": {
+        "min_gap": 4.0,
+        "max_accel": 2.0,
+        "min_accel": -2.002305164045073,
+        "speed_5s": 0.9002937183476823,
+        "speed_10s": 4.196859633632946,
+        "launch_time": 2.8000000000000003,
+        "solver_errors": 0,
+        "finite": true,
+        "planner_ms_median": 7.4571090001427365,
+        "planner_ms_p99": 8.801283229950059,
+        "planner_ms_max": 9.184166999830268
+      },
+      "candidate005": {
+        "min_gap": 4.0,
+        "max_accel": 2.0,
+        "min_accel": -2.002305164045073,
+        "speed_5s": 0.9002937183476823,
+        "speed_10s": 4.196860441564266,
+        "launch_time": 2.8000000000000003,
+        "solver_errors": 0,
+        "finite": true,
+        "planner_ms_median": 7.471692500075733,
+        "planner_ms_p99": 8.586000820055233,
+        "planner_ms_max": 11.022708000155035
+      }
+    },
+    "fast_launch": {
+      "installed003": {
+        "min_gap": 8.0,
+        "max_accel": 2.0,
+        "min_accel": -2.002305164045073,
+        "speed_5s": 2.6633652193263697,
+        "speed_10s": 9.1985747829815,
+        "launch_time": 2.0500000000000003,
+        "solver_errors": 0,
+        "finite": true,
+        "planner_ms_median": 7.491041500088613,
+        "planner_ms_p99": 9.009426340003301,
+        "planner_ms_max": 9.343697999838696
+      },
+      "candidate005": {
+        "min_gap": 8.0,
+        "max_accel": 2.0,
+        "min_accel": -2.002305164045073,
+        "speed_5s": 2.6780637768933584,
+        "speed_10s": 9.214255816189013,
+        "launch_time": 2.0500000000000003,
+        "solver_errors": 0,
+        "finite": true,
+        "planner_ms_median": 7.55049450003753,
+        "planner_ms_p99": 8.695023099987793,
+        "planner_ms_max": 9.848594000004596
+      }
+    }
+  },
+  "vehicle_validated": false
+}

@@ -1,0 +1,42 @@
+LEPRO offroad native comparison completed, 2026-11-25
+
+Scope: installed controller 003 versus candidate 005, using actual Planner,
+native acados MPC and LongControl. Each of 10 scenarios has 320 planner steps
+per variant (6400 solves); LongControl is called 5 times per step at 100 Hz.
+Vehicle acceleration follows the command instantaneously in this ideal plant.
+Navigation/curve solutions and vision vectors are substituted. This is neither
+recorded-route replay nor vehicle validation. No CAN messages are sent.
+Installed source hashes remained unchanged; candidate is not deployed.
+
+All solves returned status zero and finite measured results. In these short,
+sequential offroad runs, planner median was about 7.3-7.6 ms. This does not
+establish onroad timing or explain the prior communication fault.
+
+Key results:
+- Tight launch: initial 4 m gap, hold released and lead accelerates at t=2 s.
+  Both variants exceed 0.1 m/s at t=2.8 s. No launch-time improvement.
+- Fast launch: initial 8 m gap, hold released and lead accelerates at t=2 s.
+  Both exceed 0.1 m/s at t=2.05 s. Candidate speed at t=10 s is only
+  0.05645 km/h higher (9.21426 versus 9.19857 m/s).
+- Hold, stationary lead and close approach have identical trajectories.
+- Restop minimum gap: 3.83804 m baseline, 3.83749 m candidate.
+- Hard-braking minimum gap: 3.94787 m baseline, 3.94731 m candidate.
+- Close approach minimum gap: 3.61350 m in both variants.
+These below-4 m results must not be reported as passing a 4 m hard clearance
+criterion. The planner's stop-distance preference is not a guaranteed bound.
+
+The generic launch case permits creeping before the lead moves because its
+initial gap is 8 m with no hold. Its launch_time is NOT a lead-response delay.
+Use the explicit tight/fast held-start cases for the response comparison.
+
+Interpretation: removing the low-speed exclusion and raising its planning
+ceiling did not materially improve launch in these cases. The existing
+LongControl starting state still commands CP.startAccel (2 m/s^2 observed),
+independently of the candidate ceiling. In other states the optimizer can
+choose acceleration below the raised ceiling. Further ceiling increases are
+not supported by these results. No road-test readiness conclusion is made.
+
+Next evidence needed: recorded launch alignment of lead motion, hold/state
+transition, planned acceleration, commanded acceleration and vehicle response;
+also identify the service causing communication alerts. Retain the installed
+003 controller plus 004 diagnostics while those issues are unresolved.
