@@ -1,0 +1,16 @@
+{
+  "revision": "003",
+  "source_commit": "7994a89c12a1c7046ac82345b705fed21491d724",
+  "status": "installed_restart_verified_offroad",
+  "verified_utc": "2026-11-25T07:24:30.720354Z",
+  "vehicle_tested": false,
+  "checks": {
+    "source_and_runtime_match": true,
+    "unit_and_input_tests": 13,
+    "offroad_planner_gate": true,
+    "manager_expected_processes_running": true,
+    "driver_video_recording": false
+  },
+  "scope": "Conditional moving-lead acceleration only; no starting/stopping or power-management changes.",
+  "version_tracking": "Device retains its existing Git worktree and unrelated edits; applied file hashes and source commit are recorded in device-local DEPLOYED_REVISION.json."
+}
