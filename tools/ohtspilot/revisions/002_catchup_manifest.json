@@ -101,7 +101,7 @@
   "note": "Runtime /data/ntune and /data/params values; repository defaults alone do not synchronize a device.",
   "revision": "002",
   "parent": "000",
-  "status": "candidate_disabled_device_activation_pending",
+  "status": "candidate_disabled_automatic_powerdown_review",
   "catchup_enabled": false,
   "description": "Moving-lead acceleration ceiling allowance up to 0.3 m/s^2, bounded by 1.4 m/s^2; no standstill or braking tuning.",
   "validation": {
@@ -110,7 +110,8 @@
     "native_solver": "Six original acados ideal-plant comparisons; zero solver errors. Stationary and close-lead traces identical. Not actual vehicle validation.",
     "vehicle_validation": false,
     "device_deployed": false,
-    "native_planner_import": true
+    "native_planner_import": true,
+    "activation_hold": "Automatic device restart reported. Existing power-down predicate reproduces observed battery100/charge_type N/A after uptime3600; prior kernel log shows orderly power-down at3603s. Initiating event not proven."
   },
   "recorded_input_review": {
     "nonintervention_samples": 746,

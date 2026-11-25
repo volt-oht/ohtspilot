@@ -1,7 +1,10 @@
 Revision 002: conditional moving-lead acceleration allowance
 
 Status: IMPLEMENTED, DISABLED. No installed driving-controller change yet.
-Activation awaits the device restart clarification and a guarded deployment.
+Activation is held after a confirmed automatic device restart. The existing
+offroad power-down predicate reproduces the observed full-battery/noncharging
+condition after 3600 seconds; the initiating event log was not retained.
+Resolve that operational issue before guarded device activation.
 This is a limited experimental candidate, not vehicle safety acceptance.
 
 Purpose
