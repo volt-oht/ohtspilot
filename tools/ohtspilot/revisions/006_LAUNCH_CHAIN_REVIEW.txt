@@ -1,5 +1,10 @@
 Recorded launch-chain investigation, 2026-11-25 (analysis only)
 
+Later timing clarification: 008_STOP_HOLD_REVIEW.txt documents that the
+carControl state label lags the updated acceleration command by one cycle.
+The command-to-wheel observation is unchanged; interpret the state-label
+timestamps below as recorded labels, not exact internal transition times.
+
 Conclusion: in two earlier pre-modification launches, delay occurs both before
 the plan permits starting and after drive/brake-release commands are sent.
 State transition and CAN scheduling between those phases are comparatively

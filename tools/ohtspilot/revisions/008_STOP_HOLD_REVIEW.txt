@@ -1,0 +1,56 @@
+Stop-to-hold investigation, 2026-11-25 (analysis only)
+
+Expanded the two earlier departure windows back through the approach to stop.
+Read carState, carControl, longitudinalPlan and received/sent CAN from original
+rlogs. The driver did not press either pedal during either stopping/hold phase.
+No installed code, settings or vehicle messages were changed by this analysis.
+
+Confirmed behavior:
+- Logged stopAccel = -2.0 m/s^2; stoppingDecelRate = 3.0.
+- Case A: hold command stays exactly -2.13074565 for about 26.10 seconds
+  from the standstill flag until the first positive departure command.
+- Case B: hold command stays exactly -2.24160671 for about 2.05 seconds.
+- There is no continuing growth of the commanded braking during either hold.
+- Brake CAN magnitude is 150 / 166 immediately before release (mode 13).
+- Raw pressure feedback is constant 10373 in A; B settles near 20150 after
+  rising following the standstill flag. These are unitless DBC counts, not
+  calibrated physical pressure or evidence of a linear command-pressure map.
+
+Code explanation:
+In LongControl.update's stopping branch, the command continues decreasing while
+not CS.standstill, even below CP.stopAccel. Once standstill is true and the
+command is already <= stopAccel, the previous command is retained. There is
+no restoration to exactly stopAccel. The -2.0 value is not a hard lower bound.
+This explains the observed held values; it does not prove that the retained
+extra braking is unnecessary or is the cause of the observed release delay.
+Recorded holds are about 0.131 / 0.242 m/s^2 more negative than stopAccel.
+
+Important stop-detection boundary:
+At the first standstill=true sample, filtered speed is still 0.263 / 0.224 m/s
+and wheel speeds are around 0.24-0.28 m/s. The configured cluster-speed path
+sets standstill from vEgoRaw < 0.1. All wheels first reach <=0.05 m/s about
+0.619 / 0.471 s AFTER that flag. These are signal observations, not ground
+truth motion. Therefore a hold-relaxation change triggered only by standstill
+could affect the final stopping phase and cannot be treated as a harmless
+stationary-only change. Do not change UseClusterSpeed globally to address it.
+
+Timing correction to revision 006:
+controlsd assigns actuators.longControlState before calling LongControl.update,
+but assigns actuators.accel from that update. The label can lag the new command
+by one control cycle. First positive commands are about 8.8 / 6.5 ms before
+the first carControl starting labels. Plan-publication -> positive command is
+about 16 / 6 ms; positive command -> CAN send is about 18 / 26 ms.
+The previously reported CAN-send -> wheel delay (1.051 / 1.192 s) is unchanged.
+This logging order explains transient state/command mismatch; no control or
+label ordering was changed, since downstream consumers must first be audited.
+
+Outcome:
+The suspected continuously accumulating hold braking is ruled out in these
+two records. A larger-than-stopAccel command inherited from final stopping is
+confirmed. Relaxing it might reduce held pressure, but there is no validated
+pressure/actuator model to predict release time, clearance or roll protection.
+If explored, separate final stopping from confirmed stationary hold and replay
+loss-of-standstill, wheel disagreement, lead restop and slope cases before any
+deployment. The two level-ground examples alone do not validate such a change.
+LEPRO remains controller 003 plus diagnostics 004. No fix or road readiness
+claim is made; departure-response and communication issues remain unresolved.
