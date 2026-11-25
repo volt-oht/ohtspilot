@@ -35,7 +35,7 @@ class SM(dict):
 def fixture():
   lead = NS(status=True,radar=True,dRel=45.,vRel=3.,vLead=16.9,aLeadK=.5)
   sm = SM(carState=NS(vEgo=13.9,aEgo=.1,gasPressed=False,brakePressed=False,
-                     standstill=False,steeringAngleDeg=0.,cruiseGap=2.),
+                     standstill=False,cruiseState=NS(standstill=False),steeringAngleDeg=0.,cruiseGap=2.),
           controlsState=NS(vCruise=90.,longControlState='pid',forceDecel=False,active=True),
           radarState=NS(leadOne=lead,leadTwo=lead,radarErrors=[]),modelV2=NS())
   m = NS(mode='acc',stop_line=False,applyLongDynamicCost=False,stopDistance=4.,
@@ -63,14 +63,38 @@ class PlannerIntegrationTests(unittest.TestCase):
 
   def test_baseline_gates(self):
     for field,value in [('active',False),('forceDecel',True),('longControlState','off'),
-                        ('longControlState','stopping'),('longControlState','starting')]:
+                        ('longControlState','stopping')]:
       obj,sm=fixture()
       setattr(sm['controlsState'],field,value)
       self.assertAlmostEqual(self.run_update(obj,sm)[1],.7,places=12)
-    for field in ('gasPressed','brakePressed','standstill'):
+    for field in ('gasPressed','brakePressed'):
       obj,sm=fixture()
       setattr(sm['carState'],field,True)
       self.assertAlmostEqual(self.run_update(obj,sm)[1],.7,places=12)
+
+  def test_departure_requires_existing_release_and_healthy_moving_lead(self):
+    for speed in [0., .4, 1., 2.]:
+      for state_name in ['pid','starting']:
+        obj,sm=fixture()
+        sm['carState'].vEgo=speed
+        sm['carState'].standstill=speed==0.
+        sm['controlsState'].longControlState=state_name
+        lo,hi=self.run_update(obj,sm)
+        self.assertEqual(lo,-1.2)
+        self.assertGreater(hi,env['get_max_accel'](speed))
+        self.assertLessEqual(hi,1.7)
+    for blocker in ['hold','stopping','brake','gas','radar','stationary_lead','force_decel','decelerating_plan']:
+      obj,sm=fixture();sm['carState'].vEgo=0.;sm['carState'].standstill=True
+      if blocker=='hold':sm['carState'].cruiseState.standstill=True
+      elif blocker=='stopping':sm['controlsState'].longControlState='stopping'
+      elif blocker=='brake':sm['carState'].brakePressed=True
+      elif blocker=='gas':sm['carState'].gasPressed=True
+      elif blocker=='radar':sm.healthy=False
+      elif blocker=='stationary_lead':sm['radarState'].leadOne.vLead=0.
+      elif blocker=='force_decel':sm['controlsState'].forceDecel=True
+      elif blocker=='decelerating_plan':obj.a_desired=-.1
+      with self.subTest(blocker=blocker):
+        self.assertAlmostEqual(self.run_update(obj,sm)[1],1.4)
 
   def test_stale_radar_and_existing_experiments(self):
     obj,sm=fixture();sm.healthy=False

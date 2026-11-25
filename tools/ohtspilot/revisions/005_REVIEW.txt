@@ -1,0 +1,37 @@
+Revision 005: low-speed departure candidate, not installed on LEPRO
+
+Request: include standstill and speeds <= 2 m/s in the catch-up allowance.
+Simply removing the speed gate would leave no allowance at zero speed:
+the original base ceiling and the previous absolute ceiling are both 1.4.
+
+Changes:
+- Accept nonnegative speed through 80 km/h, including zero.
+- Accept the existing PID and starting states. Stopping and off remain excluded.
+- Use cruiseState.standstill to preserve the vehicle's hold condition; a zero
+  wheel speed alone no longer vetoes an already-authorized departure.
+- For v < 2 m/s, ceiling = max(1.4, base + 0.3 * (1 - v / 2)).
+  The final limit remains min(ceiling, base + 0.3 * lead_strength).
+  At zero speed, 1.7 m/s^2 is an experimental planning ceiling, not a forced
+  command or a validated safe vehicle acceleration. At/above 2 m/s, the
+  original 1.4 ceiling is retained. The transition is continuous.
+
+Preserved conditions: healthy radar; moving, nondecelerating radar lead;
+relative speed > 0.5 m/s; distance surplus > 2 m above stop distance plus
+time headway; both leads can veto; no pedals or forceDecel; no dynamic cost
+or stop-line mode; measured and planned acceleration nonnegative; cruise
+target above current speed; Volt with openpilot longitudinal control only.
+Turn limits remain in place. No change to stop hold, state transitions,
+brake release, startAccel, longitudinal PID, CAN messages or safety checks.
+In particular, this cannot force a departure while the controller is stopping.
+
+Validation: 11 helper tests and 6 actual Planner.update input tests passed.
+Tests cover low-speed/zero-speed ceiling changes, boundary continuity,
+stationary/closing/braking/close leads, missing radar, both pedals, hold,
+stopping state and decelerating plan. Planner tests use a recording MPC;
+they do not execute the optimizer or simulate the vehicle.
+
+Not validated: native solver trajectories for this revision, actual launch
+comfort, brake-release timing, onroad CPU load or communication fault cause.
+No LEPRO deployment or onroad test performed for this revision. Keep the
+installed 003 controller plus 004 diagnostics until those checks are complete.
+The original kanspilot repository is unchanged.

@@ -1,7 +1,8 @@
 """Experimental moving-lead response; does not command actuators.
 
 The 0.3 m/s^2 extra allowance is a tuning candidate, not a validated vehicle limit.
-Enabled for the revision 003 controlled evaluation; vehicle benefit is unproven.
+Revision 005 extends eligibility to an already-authorized low-speed departure.
+Vehicle benefit and low-speed response remain unvalidated.
 """
 import math
 
@@ -19,7 +20,7 @@ def catchup_accel_limit(base_accel, enabled, active, v_ego, a_ego, t_follow, sto
   values = (base_accel, v_ego, a_ego, t_follow, stop_distance)
   if not all(math.isfinite(x) for x in values):
     return base_accel
-  if not (2.0 < v_ego <= 80.0 / 3.6 and a_ego >= 0.0 and
+  if not (0.0 <= v_ego <= 80.0 / 3.6 and a_ego >= 0.0 and
           1.1 <= t_follow <= 2.7 and stop_distance >= 4.0):
     return base_accel
   if not leads or not leads[0].status:
@@ -39,4 +40,8 @@ def catchup_accel_limit(base_accel, enabled, active, v_ego, a_ego, t_follow, sto
       return base_accel
     strength = min(strength, min((relative_speed - 0.5) / 1.5, 1.0),
                    min((surplus - 2.0) / 6.0, 1.0))
-  return min(1.4, base_accel + 0.3 * strength)
+  # Preserve the prior ceiling above 2 m/s. Below it, taper the extra
+  # headroom continuously to zero at 2 m/s; do not force a launch command.
+  low_speed_headroom = 0.3 * max(0.0, 1.0 - v_ego / 2.0)
+  ceiling = max(1.4, base_accel + low_speed_headroom)
+  return min(ceiling, base_accel + 0.3 * strength)

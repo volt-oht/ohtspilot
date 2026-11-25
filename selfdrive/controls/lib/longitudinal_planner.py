@@ -125,9 +125,9 @@ class Planner:
     self.v_desired_filter.x = max(0.0, self.v_desired_filter.update(v_ego))
 
     base_max_accel = get_max_accel(v_ego)
-    catchup_active = (not reset_state and long_control_state == LongCtrlState.pid and
+    catchup_active = (not reset_state and long_control_state in (LongCtrlState.pid, LongCtrlState.starting) and
                      sm['controlsState'].active and not force_slow_decel and
-                     not sm['carState'].brakePressed and not sm['carState'].standstill and
+                     not sm['carState'].brakePressed and not sm['carState'].cruiseState.standstill and
                      v_cruise > v_ego + 0.5 and not sm['radarState'].radarErrors and
                      self.mpc.mode == 'acc' and not self.mpc.stop_line and
                      not self.mpc.applyLongDynamicCost and sm.all_checks(service_list=['radarState']))

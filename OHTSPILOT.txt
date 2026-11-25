@@ -1,9 +1,10 @@
 ohtspilot development baseline
 
-Current code: revision 003 enables the conditional moving-lead acceleration
-allowance for controlled evaluation. See tools/ohtspilot/revisions/003_REVIEW.txt
-and the revision manifest. Device installation is recorded separately in its
-DEPLOYED_REVISION.json. The baseline notes below describe the initial revision.
+Current repository code: revision 005 adds a low-speed departure candidate.
+It has not been installed on LEPRO. See tools/ohtspilot/revisions/005_REVIEW.txt.
+The last verified device configuration is controller 003 plus diagnostics 004.
+Device installation is recorded separately in DEPLOYED_REVISION.json and
+DIAGNOSTICS_REV004.json. The baseline notes below describe the initial revision.
 
 Source: https://github.com/volt-oht/kanspilot
 Vehicle baseline branch: lepro3

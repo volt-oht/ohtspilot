@@ -41,10 +41,32 @@ class CatchupTests(unittest.TestCase):
     self.assertEqual(self.scale(leads=(lead(), lead(dRel=15.))), .7)
     self.assertEqual(self.scale(leads=(lead(), lead(vRel=-1.))), .7)
 
-  def test_stop_and_deceleration_retain_baseline(self):
-    for speed in [0., .4, 2., 30.]:
+  def test_invalid_speed_and_deceleration_retain_baseline(self):
+    for speed in [-.1, 30.]:
       self.assertEqual(self.scale(v_ego=speed), .7)
     self.assertEqual(self.scale(a_ego=-.01), .7)
+
+  def test_departure_and_low_speed_allowance(self):
+    for speed in [0., .4, 1., 2.]:
+      front = lead(vLead=speed+2., vRel=2., dRel=20.)
+      base = 1.4 - .7 * speed / 13.9
+      actual = self.scale(v_ego=speed, a_ego=0., base_accel=base, leads=(front,))
+      expected = min(max(1.4, base+.3*max(0.,1-speed/2)), base+.3)
+      self.assertAlmostEqual(actual, expected)
+      self.assertGreater(actual, base)
+    self.assertAlmostEqual(self.scale(v_ego=0.,base_accel=1.4),1.7)
+
+  def test_low_speed_stopped_closing_braking_and_close_leads(self):
+    for speed in [0., .4, 1., 2.]:
+      for front in [lead(vLead=0.,vRel=-speed), lead(aLeadK=-.1),
+                    lead(dRel=4.+1.8*speed), lead(radar=False),
+                    lead(vRel=.5), lead(status=False)]:
+        self.assertEqual(self.scale(v_ego=speed,leads=(front,)),.7)
+
+  def test_two_metre_per_second_boundary_is_continuous(self):
+    def ceiling(speed):
+      return self.scale(v_ego=speed,base_accel=1.4-.7*speed/13.9)
+    self.assertLess(abs(ceiling(2.-1e-6)-ceiling(2.+1e-6)),1e-5)
 
   def test_loss_and_reacquisition_do_not_accumulate(self):
     for _ in range(100):
