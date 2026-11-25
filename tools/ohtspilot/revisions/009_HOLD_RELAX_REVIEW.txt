@@ -1,0 +1,49 @@
+Offline stationary-hold relaxation candidate, 2026-11-25
+
+Scope: tools/ohtspilot only. No import into LongControl, no controller patch,
+no LEPRO deployment, no CAN transmission and no change to the actual driving
+configuration. The installed controller remains 003 plus diagnostics 004.
+Candidate 005 repository driving code is also unchanged by this experiment.
+
+Trial algorithm (not validated calibration):
+- Active stopping state; standstill flag; no pedals; fresh/valid input.
+- All four wheel speeds, filtered ego speed and raw speed must have absolute
+  value <=0.02 m/s continuously for 1.0 s.
+- Only relax a negative command up to 0.3 m/s^2 below the existing stop target.
+- Move toward that target at 0.1 m/s^3; never pass the target (-2.0 in these logs).
+- Any movement, invalid/missing wheel data, stale sample, pedal or target change
+  after relaxation restores the saved hold command, preserves a stronger new
+  braking request and blocks further relaxation for the remainder of that stop.
+- Original release/start requests pass through, including the observed one-cycle
+  lag of the logged stopping label. State exit clears the experimental state.
+
+Validation:
+Seven test methods passed, covering dwell/rate/bounds, final-stop wheel motion,
+wheel disagreement/reverse motion, stale/nonfinite/missing data, pedals, target
+change, stronger braking, state exit and a departure with a lagging state label.
+Original recorded commands are compared with the offline adjusted commands.
+The replay does NOT feed changed commands back into vehicle motion or pressure.
+
+Recorded-input results:
+Case A: first adjustment only after stationary qualification; command changes
+from -2.13074565 to -2.0 over about 1.31 s following the 1 s dwell. Target reached
+well before departure. Maximum adjustment 0.13074565 m/s^2.
+Case B: short hold leaves only about 0.32 s to adjust; command reaches
+-2.20930226 before departure, versus original -2.24160671. Maximum adjustment
+0.03230445 m/s^2; target is not reached.
+All modified samples have recorded wheel/ego speeds within the qualification
+threshold. Both departure command sequences and final-stop commands are unchanged.
+
+Boundaries:
+There is no grade, brake-pressure, actuator or tire model. Stationary sensor
+readings and the user-reported level road do not establish adequate hold torque.
+Restoring the saved brake command on detected motion is not proof of rollback
+prevention; sensor delay and the step in restored command require validation.
+No claim of reduced brake pressure, shorter release time, preserved physical
+stopping distance or improved comfort is supported by this replay alone.
+Do not shorten the dwell or increase the rate simply to increase case B's effect.
+
+Tools:
+python tools/ohtspilot/test_hold_relax_candidate.py
+python tools/ohtspilot/replay_hold_relax.py INPUT_STOP_HOLD_JSON_GZ OUTPUT_JSON
+Keep private raw logs and detailed replay output outside the public repository.
