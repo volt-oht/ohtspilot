@@ -1,0 +1,30 @@
+ohtspilot development baseline
+
+Source: https://github.com/volt-oht/kanspilot
+Vehicle baseline branch: lepro3
+Source commit: a85c8436226a4371217e66de493745f0518fdfc5
+Development branch: ohtspilot
+
+This copy preserves upstream code and licenses. Changes on ohtspilot record
+the existing device configuration, enable loggerd, and add baseline comparison
+and offline stopping-sensitivity tools under tools/ohtspilot.
+
+The ntune defaults reflect one existing device, not validated general defaults.
+Existing installations read /data/ntune and /data/params; pulling this repository
+alone does not synchronize those runtime settings. RecordFront=0 is captured in
+the baseline to keep driver video recording disabled on the reference device.
+
+No new longitudinal-control behavior has been deployed by this baseline.
+The stopping-rate proposal remains analysis-only. Its idealized simulation is
+not a Volt vehicle model or evidence of real-world safety or comfort.
+Raw driving logs, videos, credentials and device identifiers are not included.
+
+Read-only source verification (Python 3):
+  python tools/ohtspilot/check_baseline.py --source-only
+Runtime verification on the reference device:
+  python tools/ohtspilot/check_baseline.py
+Offline stopping sensitivity (Python 3.9 or newer):
+  python tools/ohtspilot/stopping_sensitivity.py
+
+Keep revisions/000_baseline.json fixed. Add separately numbered review records
+for subsequent proposals, validation results and deployment decisions.

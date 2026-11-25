@@ -1,14 +1,15 @@
 {
-  "sccGasFactor": 1,
-  "sccBrakeFactor": 1,
-  "sccCurvatureFactor": 0.92,
-  "stoppingDecelRate": 3.0,
-  "vEgoStopping": 0.4,
-  "vEgoStarting": 0.35,
-  "stopAccel": -2,
-  "STOP_DISTANCE": 5.0,
-  "COMFORT_BRAKE": 2.0,
-  "StopAtStopSign": 1,
+  "sccGasFactor": 1.0,
+  "sccBrakeFactor": 1.0,
+  "sccCurvatureFactor": 0.95,
+  "stoppingDecelRate": 0.9,
+  "vEgoStopping": 0.8,
+  "vEgoStarting": 0.4,
+  "stopAccel": -2.0,
+  "STOP_DISTANCE": 6.0,
+  "COMFORT_BRAKE": 2.5,
+  "StopAtStopSign": 0.0,
+  "STOP_LINE_X_OFFSET": 0.0,
   "TrafficStopDistanceAdjust": 1.0,
-  "X_EGO_OBSTACLE_COST": 7
+  "X_EGO_OBSTACLE_COST": 7.0
 }

@@ -1,0 +1,11 @@
+{
+  "id": "001",
+  "parent": "000",
+  "status": "analysis_only_not_applied",
+  "proposal": "Evaluate effective stoppingDecelRate 3.0 vs configured 0.9",
+  "evidence": "Current interface max(value,3.0); recorded CarParams confirms3.0.",
+  "comparison": "27 ideal delayed-acceleration scenarios executing original stopping branch. Not a Volt plant or full controller test.",
+  "max_extra_distance_m_in_assumptions": 0.18329020495579762,
+  "decision": "Do not activate this rate change solely on this comparison; first validate actual brake release/torque response and stopping margins.",
+  "device_behavior_change": false
+}

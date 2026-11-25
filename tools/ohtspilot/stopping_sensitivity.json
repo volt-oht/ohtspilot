@@ -1,0 +1,441 @@
+{
+  "scope": "Ideal delayed acceleration plant; only actual stopping branch executed. Not GM plant, full planner, or safety validation.",
+  "baseline_rate": 3.0,
+  "candidate_rate": 0.9,
+  "cases": [
+    {
+      "initial_v": 0.2,
+      "initial_a": -0.2,
+      "assumed_delay": 0.0,
+      "baseline": {
+        "distance_m": 0.03464578047695977,
+        "time_s": 0.3000000000000001,
+        "end_command": -1.040946316492775
+      },
+      "candidate": {
+        "distance_m": 0.05096128256659678,
+        "time_s": 0.4400000000000002,
+        "end_command": -0.6546167980090924
+      },
+      "extra_distance_m": 0.01631550208963701
+    },
+    {
+      "initial_v": 0.2,
+      "initial_a": -0.2,
+      "assumed_delay": 0.42,
+      "baseline": {
+        "distance_m": 0.08015353866433049,
+        "time_s": 0.6300000000000003,
+        "end_command": -1.5751541604220918
+      },
+      "candidate": {
+        "distance_m": 0.08614924004706619,
+        "time_s": 0.7200000000000004,
+        "end_command": -0.8612331706030373
+      },
+      "extra_distance_m": 0.005995701382735696
+    },
+    {
+      "initial_v": 0.2,
+      "initial_a": -0.2,
+      "assumed_delay": 1.1,
+      "baseline": {
+        "distance_m": 0.09999999999999992,
+        "time_s": 1.0000000000000007,
+        "end_command": -1.9896443380090845
+      },
+      "candidate": {
+        "distance_m": 0.09999999999999992,
+        "time_s": 1.0000000000000007,
+        "end_command": -1.0346090221245454
+      },
+      "extra_distance_m": 0.0
+    },
+    {
+      "initial_v": 0.2,
+      "initial_a": -0.8,
+      "assumed_delay": 0.0,
+      "baseline": {
+        "distance_m": 0.02091660590083776,
+        "time_s": 0.20000000000000004,
+        "end_command": -1.2002682623152343
+      },
+      "candidate": {
+        "distance_m": 0.023367357142766734,
+        "time_s": 0.23000000000000007,
+        "end_command": -0.9526817670826565
+      },
+      "extra_distance_m": 0.0024507512419289744
+    },
+    {
+      "initial_v": 0.2,
+      "initial_a": -0.8,
+      "assumed_delay": 0.42,
+      "baseline": {
+        "distance_m": 0.024999999999999994,
+        "time_s": 0.25000000000000006,
+        "end_command": -1.285446554211808
+      },
+      "candidate": {
+        "distance_m": 0.024999999999999994,
+        "time_s": 0.25000000000000006,
+        "end_command": -0.9649392437567506
+      },
+      "extra_distance_m": 0.0
+    },
+    {
+      "initial_v": 0.2,
+      "initial_a": -0.8,
+      "assumed_delay": 1.1,
+      "baseline": {
+        "distance_m": 0.024999999999999994,
+        "time_s": 0.25000000000000006,
+        "end_command": -1.285446554211808
+      },
+      "candidate": {
+        "distance_m": 0.024999999999999994,
+        "time_s": 0.25000000000000006,
+        "end_command": -0.9649392437567506
+      },
+      "extra_distance_m": 0.0
+    },
+    {
+      "initial_v": 0.2,
+      "initial_a": -1.5,
+      "assumed_delay": 0.0,
+      "baseline": {
+        "distance_m": 0.012795967830680028,
+        "time_s": 0.12999999999999998,
+        "end_command": -1.67401699895571
+      },
+      "candidate": {
+        "distance_m": 0.013157312971399392,
+        "time_s": 0.13999999999999999,
+        "end_command": -1.5586398787384392
+      },
+      "extra_distance_m": 0.000361345140719364
+    },
+    {
+      "initial_v": 0.2,
+      "initial_a": -1.5,
+      "assumed_delay": 0.42,
+      "baseline": {
+        "distance_m": 0.013349999999999994,
+        "time_s": 0.13999999999999999,
+        "end_command": -1.686439820466675
+      },
+      "candidate": {
+        "distance_m": 0.013349999999999994,
+        "time_s": 0.13999999999999999,
+        "end_command": -1.5586398787384392
+      },
+      "extra_distance_m": 0.0
+    },
+    {
+      "initial_v": 0.2,
+      "initial_a": -1.5,
+      "assumed_delay": 1.1,
+      "baseline": {
+        "distance_m": 0.013349999999999994,
+        "time_s": 0.13999999999999999,
+        "end_command": -1.686439820466675
+      },
+      "candidate": {
+        "distance_m": 0.013349999999999994,
+        "time_s": 0.13999999999999999,
+        "end_command": -1.5586398787384392
+      },
+      "extra_distance_m": 0.0
+    },
+    {
+      "initial_v": 0.5,
+      "initial_a": -0.2,
+      "assumed_delay": 0.0,
+      "baseline": {
+        "distance_m": 0.16010195787193277,
+        "time_s": 0.5400000000000003,
+        "end_command": -1.4473931626361778
+      },
+      "candidate": {
+        "distance_m": 0.2422149966329582,
+        "time_s": 0.8200000000000005,
+        "end_command": -0.9266008370938165
+      },
+      "extra_distance_m": 0.08211303876102544
+    },
+    {
+      "initial_v": 0.5,
+      "initial_a": -0.2,
+      "assumed_delay": 0.42,
+      "baseline": {
+        "distance_m": 0.3102790649645604,
+        "time_s": 0.9000000000000006,
+        "end_command": -1.8930680000667497
+      },
+      "candidate": {
+        "distance_m": 0.3699981302261117,
+        "time_s": 1.1500000000000008,
+        "end_command": -1.1188505919500393
+      },
+      "extra_distance_m": 0.059719065261551296
+    },
+    {
+      "initial_v": 0.5,
+      "initial_a": -0.2,
+      "assumed_delay": 1.1,
+      "baseline": {
+        "distance_m": 0.4899214457242945,
+        "time_s": 1.470000000000001,
+        "end_command": -2.3317661651991557
+      },
+      "candidate": {
+        "distance_m": 0.5197232583066564,
+        "time_s": 1.6600000000000013,
+        "end_command": -1.3772057108720432
+      },
+      "extra_distance_m": 0.02980181258236192
+    },
+    {
+      "initial_v": 0.5,
+      "initial_a": -0.8,
+      "assumed_delay": 0.0,
+      "baseline": {
+        "distance_m": 0.11385533832927211,
+        "time_s": 0.4200000000000002,
+        "end_command": -1.5436212936196354
+      },
+      "candidate": {
+        "distance_m": 0.1359852989346896,
+        "time_s": 0.5200000000000002,
+        "end_command": -1.1198009763791679
+      },
+      "extra_distance_m": 0.022129960605417498
+    },
+    {
+      "initial_v": 0.5,
+      "initial_a": -0.8,
+      "assumed_delay": 0.42,
+      "baseline": {
+        "distance_m": 0.15382752292155005,
+        "time_s": 0.5900000000000003,
+        "end_command": -1.759386951868465
+      },
+      "candidate": {
+        "distance_m": 0.15531073149691807,
+        "time_s": 0.6100000000000003,
+        "end_command": -1.1684385627006344
+      },
+      "extra_distance_m": 0.0014832085753680169
+    },
+    {
+      "initial_v": 0.5,
+      "initial_a": -0.8,
+      "assumed_delay": 1.1,
+      "baseline": {
+        "distance_m": 0.15625999999999987,
+        "time_s": 0.6300000000000003,
+        "end_command": -1.8047716041740782
+      },
+      "candidate": {
+        "distance_m": 0.15625999999999987,
+        "time_s": 0.6300000000000003,
+        "end_command": -1.1790606435872588
+      },
+      "extra_distance_m": 0.0
+    },
+    {
+      "initial_v": 0.5,
+      "initial_a": -1.5,
+      "assumed_delay": 0.0,
+      "baseline": {
+        "distance_m": 0.07628989641342097,
+        "time_s": 0.3000000000000001,
+        "end_command": -1.86836320283396
+      },
+      "candidate": {
+        "distance_m": 0.0808216717680509,
+        "time_s": 0.3200000000000001,
+        "end_command": -1.630326415327096
+      },
+      "extra_distance_m": 0.004531775354629924
+    },
+    {
+      "initial_v": 0.5,
+      "initial_a": -1.5,
+      "assumed_delay": 0.42,
+      "baseline": {
+        "distance_m": 0.08334999999999992,
+        "time_s": 0.34000000000000014,
+        "end_command": -1.9092424370991192
+      },
+      "candidate": {
+        "distance_m": 0.08334999999999992,
+        "time_s": 0.34000000000000014,
+        "end_command": -1.6380431858243913
+      },
+      "extra_distance_m": 0.0
+    },
+    {
+      "initial_v": 0.5,
+      "initial_a": -1.5,
+      "assumed_delay": 1.1,
+      "baseline": {
+        "distance_m": 0.08334999999999992,
+        "time_s": 0.34000000000000014,
+        "end_command": -1.9092424370991192
+      },
+      "candidate": {
+        "distance_m": 0.08334999999999992,
+        "time_s": 0.34000000000000014,
+        "end_command": -1.6380431858243913
+      },
+      "extra_distance_m": 0.0
+    },
+    {
+      "initial_v": 0.8,
+      "initial_a": -0.2,
+      "assumed_delay": 0.0,
+      "baseline": {
+        "distance_m": 0.3490084701140357,
+        "time_s": 0.7300000000000004,
+        "end_command": -1.7035775631319756
+      },
+      "candidate": {
+        "distance_m": 0.5322986750698333,
+        "time_s": 1.1200000000000008,
+        "end_command": -1.1023196949169527
+      },
+      "extra_distance_m": 0.18329020495579762
+    },
+    {
+      "initial_v": 0.8,
+      "initial_a": -0.2,
+      "assumed_delay": 0.42,
+      "baseline": {
+        "distance_m": 0.6087959031552582,
+        "time_s": 1.1000000000000008,
+        "end_command": -2.0167661651991593
+      },
+      "candidate": {
+        "distance_m": 0.7606300918417993,
+        "time_s": 1.460000000000001,
+        "end_command": -1.2808133432437598
+      },
+      "extra_distance_m": 0.15183418868654108
+    },
+    {
+      "initial_v": 0.8,
+      "initial_a": -0.2,
+      "assumed_delay": 1.1,
+      "baseline": {
+        "distance_m": 0.9638387625172965,
+        "time_s": 1.6900000000000013,
+        "end_command": -2.547766165199153
+      },
+      "candidate": {
+        "distance_m": 1.0697984271277108,
+        "time_s": 2.0000000000000013,
+        "end_command": -1.5277390444970504
+      },
+      "extra_distance_m": 0.10595966461041428
+    },
+    {
+      "initial_v": 0.8,
+      "initial_a": -0.8,
+      "assumed_delay": 0.0,
+      "baseline": {
+        "distance_m": 0.2658113624074438,
+        "time_s": 0.6000000000000003,
+        "end_command": -1.7709133888738462
+      },
+      "candidate": {
+        "distance_m": 0.32935950703368977,
+        "time_s": 0.7700000000000005,
+        "end_command": -1.251567776493808
+      },
+      "extra_distance_m": 0.06354814462624597
+    },
+    {
+      "initial_v": 0.8,
+      "initial_a": -0.8,
+      "assumed_delay": 0.42,
+      "baseline": {
+        "distance_m": 0.3647963716156302,
+        "time_s": 0.8200000000000005,
+        "end_command": -1.9960120063471467
+      },
+      "candidate": {
+        "distance_m": 0.3834317318454511,
+        "time_s": 0.9100000000000006,
+        "end_command": -1.3209419971509693
+      },
+      "extra_distance_m": 0.018635360229820874
+    },
+    {
+      "initial_v": 0.8,
+      "initial_a": -0.8,
+      "assumed_delay": 1.1,
+      "baseline": {
+        "distance_m": 0.3999999999999997,
+        "time_s": 1.0000000000000007,
+        "end_command": -2.050053880280501
+      },
+      "candidate": {
+        "distance_m": 0.3999999999999997,
+        "time_s": 1.0000000000000007,
+        "end_command": -1.3639485595105452
+      },
+      "extra_distance_m": 0.0
+    },
+    {
+      "initial_v": 0.8,
+      "initial_a": -1.5,
+      "assumed_delay": 0.0,
+      "baseline": {
+        "distance_m": 0.1881093715248239,
+        "time_s": 0.45000000000000023,
+        "end_command": -2.004198498477451
+      },
+      "candidate": {
+        "distance_m": 0.2036741055338586,
+        "time_s": 0.5000000000000002,
+        "end_command": -1.6980553487268935
+      },
+      "extra_distance_m": 0.015564734009034686
+    },
+    {
+      "initial_v": 0.8,
+      "initial_a": -1.5,
+      "assumed_delay": 0.42,
+      "baseline": {
+        "distance_m": 0.212993783519966,
+        "time_s": 0.5300000000000002,
+        "end_command": -2.0311984984774507
+      },
+      "candidate": {
+        "distance_m": 0.21322869240044665,
+        "time_s": 0.5400000000000003,
+        "end_command": -1.712590989857179
+      },
+      "extra_distance_m": 0.00023490888048063874
+    },
+    {
+      "initial_v": 0.8,
+      "initial_a": -1.5,
+      "assumed_delay": 1.1,
+      "baseline": {
+        "distance_m": 0.21334999999999976,
+        "time_s": 0.5400000000000003,
+        "end_command": -2.0311984984774507
+      },
+      "candidate": {
+        "distance_m": 0.21334999999999976,
+        "time_s": 0.5400000000000003,
+        "end_command": -1.712590989857179
+      },
+      "extra_distance_m": 0.0
+    }
+  ],
+  "max_extra_distance_m": 0.18329020495579762,
+  "device_use": "Not approved by this check; needs measured brake response and full stopping evaluation."
+}

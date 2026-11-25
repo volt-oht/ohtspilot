@@ -1,0 +1,101 @@
+{
+  "base_commit": "a85c8436226a4371217e66de493745f0518fdfc5",
+  "branch": "ohtspilot",
+  "params": {
+    "AChangeCost": "150",
+    "ApplyDynamicTFollow": "110",
+    "ApplyDynamicTFollowApart": "95",
+    "ApplyDynamicTFollowDecel": "110",
+    "ApplyLongDynamicCost": "0",
+    "ApplyModelDistOrder": "32",
+    "DangerZoneCost": "100",
+    "DisableDisengageOnGas": "1",
+    "E2eDecelSpeed": "90",
+    "IsMetric": "1",
+    "JEgoCost": "5",
+    "LateralControl": "LQR",
+    "LeadDangerFactor": "75",
+    "RecordFront": "0",
+    "SoftHoldMode": "1",
+    "SteerActuatorDelayAdj": "22",
+    "SteerLimitTimerAdj": "60",
+    "SteerRatioAdj": "1700",
+    "StopDistance": "400",
+    "TFollowRatio": "100",
+    "TorqueFriction": "140",
+    "TorqueMaxLatAccel": "25",
+    "TrafficStopAccel": "80",
+    "TrafficStopDistanceAdjust": "200",
+    "TrafficStopModelSpeed": "1",
+    "UseBaseTorqueValues": "1",
+    "UseClusterSpeed": "1",
+    "UseNpilotManager": "1",
+    "XEgoObstacleCost": "5"
+  },
+  "ntune": {
+    "common.json": {
+      "steerRatio": 16.7,
+      "steerActuatorDelay": 0.1,
+      "cameraOffset": 0.06,
+      "useLiveSteerRatio": 1.0,
+      "pathOffset": 0.0,
+      "steerLimitTimer": 0.6,
+      "steerRatioScale": 0.01,
+      "steerRateCost": 1.0,
+      "closeToRoadEdge": 1.0,
+      "leftEdgeOffset": 0.13,
+      "rightEdgeOffset": -0.12
+    },
+    "lat_torque_v4.json": {
+      "liveTorqueParams": 1.0,
+      "useSteeringAngle": 1,
+      "latAccelFactor": 3.0,
+      "friction": 0.1,
+      "angle_deadzone_v2": 1.0,
+      "isLowSpeedFactor": 1.0
+    },
+    "scc.json": {
+      "sccGasFactor": 1.0,
+      "sccBrakeFactor": 1.0,
+      "sccCurvatureFactor": 0.95,
+      "stoppingDecelRate": 0.9,
+      "vEgoStopping": 0.8,
+      "vEgoStarting": 0.4,
+      "stopAccel": -2.0,
+      "STOP_DISTANCE": 6.0,
+      "COMFORT_BRAKE": 2.5,
+      "StopAtStopSign": 0.0,
+      "STOP_LINE_X_OFFSET": 0.0,
+      "TrafficStopDistanceAdjust": 1.0,
+      "X_EGO_OBSTACLE_COST": 7.0
+    },
+    "option.json": {
+      "autoEnable": 0.0,
+      "autoEnableSpeed": 15.0,
+      "autoCruiseSet": 0.0,
+      "autoCruiseSetDependsOnNda": 0.0,
+      "batteryChargingControl": 0.0,
+      "batteryChargingMin": 70.0,
+      "batteryChargingMax": 80.0
+    },
+    "lat_lqr.json": {
+      "scale": 1300,
+      "ki": 0.04,
+      "dcGain": 0.002658
+    }
+  },
+  "source_sha256": {
+    "selfdrive/car/gm/carstate.py": "a6e42f6219eddf7a2d4b8515a954cd8da15f775fcbd1823e36035d9ed354e6b7",
+    "selfdrive/car/gm/carcontroller.py": "ff5316c61eb9345e81489b3688c2d82895d4f2caaac27c6cb1aac9fe525b2ecb",
+    "selfdrive/car/gm/values.py": "bf6dc0e33a5ce274301fe0571a8839174b3c7f30bb74518983fe1d491727b5cc",
+    "selfdrive/car/gm/interface.py": "4b1cb32cc4990f31288e52e610da91fcfae54536ddeb26896ee9e03467f66e23",
+    "selfdrive/controls/lib/longcontrol.py": "fa8e1959d6913642df26cefe3003df61f58c1932441ddf6f7ac9b725c23ee899",
+    "selfdrive/controls/lib/longitudinal_planner.py": "400018070d7ae5e684597dd5401483c0ee2e16d5a58c9a108e091411494f7dda",
+    "selfdrive/controls/lib/longitudinal_mpc_lib/long_mpc.py": "29b6c8fc2346984f50e0ab93744813cd3f341f6d66bf889dc61fa1ebc1989f6d",
+    "opendbc/gm_global_a_powertrain_generated.dbc": "0198692de65ef0c30e92566befc9d4951f49bc0ba5f57a218f433005a39131fd",
+    "opendbc/gm_global_a_chassis.dbc": "caf7896a2ae241771562dbe6462034ab4c52e76ba31af1ed79fca6e3f55580a8",
+    "selfdrive/manager/process_config.py": "47d72447e1023da9df83c3d5b107d31c7f71d5c49c686a61cf12e53595f0d711"
+  },
+  "effective_stopping_decel_rate": 3.0,
+  "note": "Runtime /data/ntune and /data/params values; repository defaults alone do not synchronize a device."
+}
