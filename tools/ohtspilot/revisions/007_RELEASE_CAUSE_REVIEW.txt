@@ -1,0 +1,50 @@
+Release-cause investigation and counterfactual state replay, 2026-11-25
+
+User confirms both recorded return-trip departure locations were level ground.
+This is user-reported context, not a measured road grade.
+
+Executed replay_launch_state.py against the full-rate selected launch records.
+The replay executes the actual long_control_state_trans source using recorded
+plan trajectories and car state. Each variant has its own state history,
+initialized from the first available recorded state, and stops before pedal
+intervention. EnabledAcc and longActive both participate, matching controlsd.
+
+Baseline replay starts 20.1 ms / 6.5 ms before the recorded starts. Three state
+samples differ in each case (759 / 939 compared), concentrated at transitions.
+Publication time approximates subscriber receipt time, so this is not exact
+closed-loop replay. It is adequate to reject the following simple explanations:
+
+1. Reverse cruiseState.standstill to raw CruiseState == 4:
+   Neither case starts before driver intervention. This would prevent the
+   desired departure in these records. Do not deploy this apparent cleanup.
+2. Ignore cruiseState.standstill:
+   Both start times are identical to the baseline replay. It does not explain
+   the observed launch delay and removing a condition adds no observed benefit.
+3. Lower CP.vEgoStarting from 0.4 to 0.3:
+   Replay starts 0.3464 s / 0.0422 s earlier than baseline. This also changes
+   the starting-to-PID transition, because the existing parameter serves both
+   purposes. Recorded trajectories do not react to the hypothetical earlier
+   departure, so clearance, brake response and comfort are not validated.
+   No runtime setting or controller change made from this experiment.
+
+Review of the existing release output:
+gmcan.py builds brake release with mode 1 and command zero when near_stop and
+full_stop are false. The two recorded departures already continuously send
+that output, alongside positive drive command 3413. Afterward, the received
+friction-brake-pressure field decays over time rather than vanishing at once.
+This narrows the remaining investigation to vehicle/ECU release response and
+the pressure held immediately before release; it does not identify a proven
+alternative CAN command, release mode, calibration or pressure time constant.
+
+No corrective vehicle-control patch is established by these results. In
+particular, do not compensate by raising startAccel, removing hold checks,
+shortening the following distance or inventing another brake-release mode.
+Those changes are not supported by these two records. The ideal native plant
+used in revision 005 lacks the observed brake-pressure dynamics and cannot
+validate a correction for this one-second post-command response interval.
+
+Deliverables: reusable offline state replay tool and this rejection record.
+LEPRO remains controller 003 plus diagnostics 004; candidate 005 is not installed.
+Original kanspilot unchanged. No claim that the departure or communication
+problem has been fixed. A verified release-response model or authoritative GM
+command interpretation is needed before a hardware-facing release change.
