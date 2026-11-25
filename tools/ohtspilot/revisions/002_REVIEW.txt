@@ -1,0 +1,62 @@
+Revision 002: conditional moving-lead acceleration allowance
+
+Status: IMPLEMENTED, DISABLED. No installed driving-controller change yet.
+Activation awaits the device restart clarification and a guarded deployment.
+This is a limited experimental candidate, not vehicle safety acceptance.
+
+Purpose
+When an already moving Volt follows a radar lead that is pulling away with
+surplus distance, permit up to 0.3 m/s^2 above the original planning ceiling,
+without exceeding 1.4 m/s^2. The MPC still chooses acceleration; this allowance
+is not a direct acceleration command and does not guarantee faster movement.
+
+Eligibility
+- Volt fingerprint and openpilot longitudinal control only.
+- Active PID operation, speed above 2 m/s and at most 80 km/h.
+- Fresh valid radar, no radarErrors, no pedals or standstill/forceDecel.
+- Both measured and planned acceleration must be nonnegative.
+- Every present lead must be radar-based, nondecelerating, and pulling away
+  by more than 0.5 m/s. LeadOne must be present.
+- Distance must exceed stopDistance + selected GAP time * speed by over 2 m.
+  The allowance grows continuously to its maximum over 2..8 m surplus and
+  0.5..2 m/s relative speed. This formula is an eligibility reference, not a
+  certified safe distance.
+- Disabled when existing dynamic-cost or signal-stop experiments are active.
+- Existing turn acceleration limits still apply after this allowance.
+
+Scope
+No changes to GAP targets, stopping/starting state transitions, brake or gas
+CAN mapping, safety firmware, braking limits or stoppingDecelRate. Therefore
+this revision does not fix standstill release or final-stop discomfort.
+
+Validation
+8 helper tests and 5 actual planner-update input tests pass. Input tests use
+a recording MPC, not fake optimization output. Native planner import and
+construction with recorded vehicle CarParams pass on LEPRO.
+The installed acados solver was used for 6 original/candidate comparisons:
+pull-away, acceleration then braking, stationary lead, close lead, temporary
+lead loss, and a second restrictive lead. Vehicle motion was an ideal plant;
+the Volt actuators, PID, sensing delay and road conditions were not simulated.
+No solver errors in these scenarios. Stationary and close-lead trajectories
+were identical. All modeled primary-lead minimum gaps were >=4 m; this is
+only a test observation, not proof of safety in other situations.
+
+Pull-away speed at 10 s: 18.5347377 -> 18.6092304 m/s (+0.268 km/h).
+Acceleration then braking peak |jerk|: 1.3924361 -> 1.4144815 m/s^3 (+1.6%).
+The latter minimum primary-lead gap: 4.5087469 -> 4.5033219 m.
+See 002_native_summary.json for all cases. Comfort improvement is unproven.
+The cost-only precursor was rejected for negligible speed benefit.
+
+Recorded-input screening (not a new trajectory or behavior replay)
+Assuming dynamic cost OFF, 71 of 746 aligned samples in the nonintervention
+segment met the allowance conditions; the largest allowance was 0.129 m/s^2.
+The recorded dynamic-cost setting is uncertain; do not claim reproduction.
+
+Reproduce PC checks
+python tools/ohtspilot/test_lead_catchup.py
+python tools/ohtspilot/test_catchup_planner.py
+python tools/ohtspilot/check_baseline.py --source-only --manifest tools/ohtspilot/revisions/002_catchup_manifest.json
+
+The immutable baseline.json intentionally identifies the original revision.
+Use the revision manifest to verify this candidate's different planner hash.
+ENABLED in selfdrive/controls/lib/lead_catchup.py remains False.

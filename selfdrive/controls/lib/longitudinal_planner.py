@@ -16,6 +16,8 @@ from selfdrive.controls.lib.drive_helpers import V_CRUISE_MAX, CONTROL_N
 from selfdrive.swaglog import cloudlog
 from selfdrive.controls.lib.vision_turn_controller import VisionTurnController
 from selfdrive.controls.lib.events import Events
+from selfdrive.controls.lib import lead_catchup
+from selfdrive.car.gm.values import CAR as GM_CAR
 
 LON_MPC_STEP = 0.2 # first step(0.2s)
 AWARENESS_DECEL = -0.2 # car smoothly decel at .2m/s^2 when user is distracted
@@ -51,6 +53,8 @@ class Planner:
   def __init__(self, CP, init_v=0.0, init_a=0.0):
     self.CP = CP
     self.mpc = LongitudinalMpc()
+    self.catchup_enabled = (lead_catchup.ENABLED and CP.carFingerprint == GM_CAR.VOLT and
+                            CP.openpilotLongitudinalControl)
 
     self.fcw = False
 
@@ -120,7 +124,19 @@ class Planner:
     # Prevent divergence, smooth in current v_ego
     self.v_desired_filter.x = max(0.0, self.v_desired_filter.update(v_ego))
 
-    accel_limits = [A_CRUISE_MIN, get_max_accel(v_ego)]
+    base_max_accel = get_max_accel(v_ego)
+    catchup_active = (not reset_state and long_control_state == LongCtrlState.pid and
+                     sm['controlsState'].active and not force_slow_decel and
+                     not sm['carState'].brakePressed and not sm['carState'].standstill and
+                     v_cruise > v_ego + 0.5 and not sm['radarState'].radarErrors and
+                     self.mpc.mode == 'acc' and not self.mpc.stop_line and
+                     not self.mpc.applyLongDynamicCost and sm.all_checks(service_list=['radarState']))
+    follow_time = interp(int(clip(sm['carState'].cruiseGap, 1., 3.)), [1, 2, 3], [1.1, 1.8, 2.7])
+    max_accel = lead_catchup.catchup_accel_limit(
+      base_max_accel, self.catchup_enabled, catchup_active, v_ego,
+      min(sm['carState'].aEgo, self.a_desired), follow_time, self.mpc.stopDistance,
+      (sm['radarState'].leadOne, sm['radarState'].leadTwo))
+    accel_limits = [A_CRUISE_MIN, max_accel]
     accel_limits_turns = limit_accel_in_turns(v_ego, sm['carState'].steeringAngleDeg, accel_limits, self.CP)
 
     #dp

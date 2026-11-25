@@ -1,6 +1,6 @@
 import argparse,hashlib,json,pathlib,sys
-p=argparse.ArgumentParser();p.add_argument('--source-only',action='store_true');p.add_argument('--runtime-root',default='/data');args=p.parse_args()
-root=pathlib.Path(__file__).resolve().parents[2];base=json.loads(pathlib.Path(__file__).with_name('baseline.json').read_text());bad=[]
+p=argparse.ArgumentParser();p.add_argument('--source-only',action='store_true');p.add_argument('--runtime-root',default='/data');p.add_argument('--manifest',type=pathlib.Path,default=pathlib.Path(__file__).with_name('baseline.json'));args=p.parse_args()
+root=pathlib.Path(__file__).resolve().parents[2];base=json.loads(args.manifest.read_text());bad=[]
 for name,expected in base['source_sha256'].items():
  f=root/name
  if not f.is_file() or hashlib.sha256(f.read_bytes()).hexdigest()!=expected:bad.append('source:'+name)
