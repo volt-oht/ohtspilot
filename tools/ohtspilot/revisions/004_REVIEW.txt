@@ -1,0 +1,40 @@
+Revision 004: communication diagnostics, not an acceleration retune
+
+The latest drive contains commIssue and commIssueAvgFreq alerts. These are
+internal service-health alerts, not evidence of an Internet connection fault.
+Some alert contexts show high CPU utilization; causality is not established.
+liveParameters, lateralPlan and liveTorqueParameters include invalid messages.
+Their publishers use different input checks; matching invalid counts alone
+do not establish a direct dependency or identify the failed input service.
+
+The manager disabled logmessaged, which discarded the detailed cloudlog
+commIssue events needed to distinguish invalid, missing and slow services.
+Enable the existing persistent local logmessaged process. Its rotating logger
+retains a bounded number of files. Uploader remains disabled. The offroad
+synthetic probe verified both errorLogMessage delivery and local persistence.
+Onroad resource impact and the original communication fault remain unresolved.
+
+Runtime comparison settings: ApplyLongDynamicCost=0, RecordFront=0,
+RecordFrontLock=0. The first setting restores the revision 003 comparison
+baseline; the latter two preserve the request not to record driver video.
+Current post-drive settings had dynamic cost=1 and recording=1, but all nine
+route initData snapshots recorded dynamic cost=0 and recording=1. The time
+of the dynamic-cost change is unknown; the user confirmed enabling it manually.
+The user did not enable driver recording. Do not claim the candidate
+was inactive throughout this drive based only on the post-drive setting.
+
+Reconstructed input eligibility was narrow (112 samples across nine segments).
+This is an approximate screen, not proof of actual allowance activation: the
+internal dynamic-cost state and subscriber health are not fully logged.
+The existing change raises a conditional moving-lead acceleration ceiling;
+it does not force acceleration and excludes standstill and <=2 m/s. Thus it
+cannot directly improve the initial standstill launch requested by the user.
+Do not increase gains based on this screen or suppress communication checks.
+
+No longitudinal, lateral, CAN or safety-check code changes in this revision.
+Backup process_config and previous parameter values before installation.
+After a controlled offroad restart, verify manager reports logmessaged running,
+both driving processes stopped, matching source/runtime manifest, and an
+explicitly synthetic event reaches errorLogMessage and the rotating log.
+Do not interpret those offroad checks as a resolved onroad fault.
+Keep the original kanspilot repository and the revision 003 receipt unchanged.
