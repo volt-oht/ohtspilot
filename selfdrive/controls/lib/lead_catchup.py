@@ -1,19 +1,19 @@
 """Experimental moving-lead response; does not command actuators.
 
 The 0.3 m/s^2 extra allowance is a tuning candidate, not a validated vehicle limit.
-Keep deployment disabled until the revision's validation gate is satisfied.
+Enabled for the revision 003 controlled evaluation; vehicle benefit is unproven.
 """
 import math
 
-ENABLED = False
+ENABLED = True
 
 
 def catchup_accel_limit(base_accel, enabled, active, v_ego, a_ego, t_follow, stop_distance, leads):
   """Return a bounded planning ceiling, failing to the original ceiling.
 
-Both leads must permit catch-up; an unavailable first lead cannot enable it.
-No distance reduction or change to braking, jerk costs or actuator commands.
-"""
+  Both leads must permit catch-up; an unavailable first lead cannot enable it.
+  No distance reduction or change to braking, jerk costs or actuator commands.
+  """
   if not enabled or not active or not 0.0 < base_accel <= 1.4:
     return base_accel
   values = (base_accel, v_ego, a_ego, t_follow, stop_distance)
@@ -32,7 +32,7 @@ No distance reduction or change to braking, jerk costs or actuator commands.
       return base_accel
     if not all(math.isfinite(x) for x in (lead.dRel, lead.vRel, lead.vLead, lead.aLeadK)):
       return base_accel
-    # A slowing or closing lead must retain the original cost immediately.
+    # A slowing or closing lead must retain the original ceiling immediately.
     relative_speed = min(lead.vRel, lead.vLead - v_ego)
     surplus = lead.dRel - (stop_distance + t_follow * v_ego)
     if lead.aLeadK < 0.0 or relative_speed <= 0.5 or surplus <= 2.0:

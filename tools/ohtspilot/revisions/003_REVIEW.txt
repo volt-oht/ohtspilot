@@ -1,0 +1,25 @@
+Revision 003: enable revision 002 for controlled device evaluation
+
+The user requested device application again after the automatic shutdown
+finding was explained. The offroad automatic power-down behavior is retained;
+this activation does not claim to repair it or rule out other device faults.
+
+Only the moving-lead allowance is enabled. Starting and final-stop logic,
+following distances, braking limits and CAN mappings are unchanged.
+Eligibility and the modest synthetic benefit remain as described in 002_REVIEW.
+The flag is enabled only for the Volt fingerprint with longitudinal control.
+
+The 13 code/input checks, native acados ideal-plant comparison and import
+check support this limited experiment. They do not establish real-vehicle
+safety, comfort or a cure for the reported slow restart.
+
+Device deployment must verify fresh offroad state, stopped control processes,
+the original source hashes and unchanged runtime settings before writing.
+The prior files are backed up before replacement. The receipt records the
+Git commit and rollback directory. On-device source/runtime comparison,
+input checks and an isolated Planner constructor check must pass afterward.
+Existing unrelated device edits and power-management code are preserved.
+
+Use 003_catchup_manifest.json for this revision. Baselines 000 and 002 remain
+historical records and are not overwritten. Start evaluation in a controlled
+area with sufficient space, not as proof of readiness for general road use.
