@@ -1,0 +1,68 @@
+Recorded launch-chain investigation, 2026-11-25 (analysis only)
+
+Conclusion: in two earlier pre-modification launches, delay occurs both before
+the plan permits starting and after drive/brake-release commands are sent.
+State transition and CAN scheduling between those phases are comparatively
+short. Raising the current planning ceiling does not address the observed
+post-command delay. No control code or installed configuration changed here.
+
+Data boundaries:
+- Two recorded return-trip launches; use only the interval before the driver's
+  later accelerator intervention. Do not relabel them as fully nonintervened
+  trips or as the earlier truck-passing scene.
+- Full-rate selected carState/carControl/plan/radar and CAN records extracted.
+- Latest post-modification test: complete carControl state census of nine
+  segments contains only off/pid, no starting/stopping. It cannot demonstrate
+  an improvement in an automatic stopping-to-starting transition.
+
+Observed delays, seconds (case A / case B):
+Radar lead speed first exceeds 0.3 m/s -> eligible published plan: 0.750 / 1.352
+Eligible published plan -> starting command:                    0.025 / 0.013
+Starting command -> positive drive CAN command:                0.009 / 0.020
+Drive CAN command -> any wheel speed exceeds 0.05 m/s:          1.051 / 1.192
+Drive CAN command -> driver accelerator intervention:          2.282 / 2.341
+
+The lead-motion reference is a threshold on filtered radar data, not video
+ground truth. Plan eligibility is reconstructed at publication using logged
+speeds and actuator delays: future speed > vEgoStarting (0.4 m/s) and rising.
+Actual subscriber receipt time and t_since_plan can differ. Wheel thresholds
+include sensor quantization/detection delay; this is not a measured physical
+actuator time constant. Changing the lead threshold changes the first delay.
+
+Command evidence before wheel motion:
+- LongControl remains in starting with accel command exactly +2.0 m/s^2.
+- Every selected drive frame: gas command 3413, active 1, fullstop 0.
+- Every selected friction-brake frame: command 0, mode 1.
+- Maximum drive-message interval: about 43 / 50 ms (nominal send cycle 40 ms).
+Thus the one-second interval is not explained by a missing positive command
+or by the planner still requesting a small positive acceleration.
+
+Additional evidence: received chassis-bus address 368, decoded according to
+gm_global_a_chassis.dbc as EBCMFrictionBrakeStatus.FrictionBrakePressure.
+DBC declares no physical unit; treat these as raw feedback counts only.
+Before release, medians are 10373 / 20150. They decrease after release;
+half-value crossing takes 0.564 / 0.504 seconds. At first wheel movement
+the feedback remains nonzero. This supports investigating brake-release and
+vehicle response, but does not prove the precise hydraulic/ECU cause.
+Case A reaches zero only AFTER driver pedal intervention, so that endpoint
+must not be used as an automatic release-time measurement.
+
+Why candidate 005 does not solve these launches:
+- Initially the lead is only about 3 m away. Its surplus-distance condition
+  requires more than stopDistance + timeHeadway*v + 2 m (over 6 m at rest).
+- It excludes stopping; raising the ceiling cannot by itself authorize start.
+- During starting, the existing controller commands CP.startAccel = 2.0,
+  independently of the candidate's 1.7 m/s^2 planning ceiling.
+
+Code issue to investigate separately: carstate maps cruiseState.standstill
+using raw CruiseState != STANDSTILL, whereas carcontroller uses == STANDSTILL.
+Do not reverse that flag blindly: it participates in the existing start logic.
+Raw CruiseState interpretation and the actual GM release protocol need a
+consistent, replay-verified definition before any change to hold/start logic.
+
+Next work: distinguish commanded release, received brake feedback, raw GM
+cruise state and longitudinal torque response. Evaluate any release/state
+proposal in replay with close/stationary lead and pedal cases. Do not increase
+startAccel or lower start/clearance thresholds based on these two cases alone.
+Communication fault root cause remains unresolved; no deployment approval is
+inferred from this analysis. Original kanspilot remains unchanged.
